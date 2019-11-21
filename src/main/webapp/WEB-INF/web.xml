@@ -7,13 +7,13 @@
 	
 	
 	<servlet>
-	<servlet-name>FrontController</servlet-name>
-	<servlet-class>com.skillstorm.training.TraineeServlet</servlet-class>
+	<servlet-name>fcservlet</servlet-name>
+	<servlet-class>com.skillstorm.nextgen.Fcservlet</servlet-class>
 	</servlet>
 	
 	<!--  Routing or mapping -->
 	<servlet-mapping>
-	<servlet-name>FrontController</servlet-name>
+	<servlet-name>fcservlet</servlet-name>
 	<url-pattern>/api*</url-pattern>
 	</servlet-mapping>
 
