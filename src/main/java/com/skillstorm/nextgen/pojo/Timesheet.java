@@ -20,7 +20,7 @@ public class Timesheet {
 
 	
 	public int getHours(PunchCard p_card) {
-		// TODO calcuate the hours from p_card times
+		// TODO calculate the hours from p_card times
 		return 1;
 	}
 
