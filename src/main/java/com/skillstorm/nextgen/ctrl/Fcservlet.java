@@ -15,13 +15,14 @@ public class Fcservlet extends HttpServlet {
 
 	protected void doDispatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String uri = req.getRequestURI();
+		
 		if(req.getRequestURI().contains("hello")) {
 			resp.getWriter().append("Timedopla API");
 			resp.setStatus(200);
 		}
 		
 		switch (uri) {
-		case "/timedopla/api/user":
+		case "/Timedopla/api/user":
 			if (req.getMethod().equals("POST")) {
 				userController.postUser(req, resp);
 				return;
@@ -41,7 +42,7 @@ public class Fcservlet extends HttpServlet {
 			
 			break;
 			
-		case "/timedopla/api/timesheet":
+		case "/Timedopla/api/timesheet":
 			if (req.getMethod().equals("POST")) {
 				timeSheetController.postTimeSheet(req, resp);
 				return;
@@ -61,7 +62,7 @@ public class Fcservlet extends HttpServlet {
 			
 			break;
 			
-		case "/timedopla/api/punchcard":
+		case "/Timedopla/api/punchcard":
 			if (req.getMethod().equals("POST")) {
 				punchCardController.postPunchCard(req, resp);
 				return;

@@ -3,18 +3,18 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
-	<display-name>Timedopla</display-name>
-	
+	<display-name>timedopla</display-name>
 	
 	<servlet>
 	<servlet-name>fcservlet</servlet-name>
-	<servlet-class>com.skillstorm.nextgen.Fcservlet</servlet-class>
+	<servlet-class>com.skillstorm.nextgen.ctrl.Fcservlet</servlet-class>
+	<load-on-startup>1</load-on-startup>
 	</servlet>
 	
 	<!--  Routing or mapping -->
 	<servlet-mapping>
 	<servlet-name>fcservlet</servlet-name>
-	<url-pattern>/api*</url-pattern>
+	<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 
 

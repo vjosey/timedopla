@@ -4,6 +4,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.skillstorm.nextgen.pojo.User;
 
@@ -159,6 +161,32 @@ public void update(User user) {
 		}
 	 //
  }
+	
+ 
+	public List<User> findAll() {
+		Connection conn = getConnection();
+		LinkedList<User> results = new LinkedList<>();
+		try {
+			ResultSet rs = conn.prepareStatement("select * from user").executeQuery();
+			while (rs.next()) {
+				User u = new User(rs.getInt("userId"), rs.getString("username"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("pcode"),""+ rs.getInt("roleId"));
+				
+				 System.out.println("Find All:   " + u.toString());
+				results.add(u);
+			}
+		} catch (SQLException e) {
+			//throw new RuntimeException(e);
+			 System.out.println("All users");
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				//throw new RuntimeException(e);
+			}
+		}
+		return results;
+	}
+	
 	
  public String getRoleAsString(int rId) {
 		String role = "";

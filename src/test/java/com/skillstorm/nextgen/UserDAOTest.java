@@ -1,4 +1,6 @@
 package com.skillstorm.nextgen;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import com.skillstorm.nextgen.data.UserDAO;
@@ -44,5 +46,26 @@ public class UserDAOTest {
 		System.out.println(actuals);
 		 Assert.assertEquals(expecteds, actuals);
 	}
+	
+	
+	@Test
+	public void testfindAll() {
+		UserDAO dao = new UserDAO();
+		List<User> users = dao.findAll();
+		
+		String actuals="Line : 17 None";
+		
+		if(users != null)
+		{
+		actuals = users.get(6).getFirstName().toString();
+		
+		String expecteds = "Pepper";
+		
+		
+		System.out.println(users);
+		System.out.println(actuals);
+		 Assert.assertEquals(expecteds, actuals);
+	}
 
 }
+	}

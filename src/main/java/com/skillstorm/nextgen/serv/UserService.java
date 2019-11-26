@@ -1,5 +1,7 @@
 package com.skillstorm.nextgen.serv;
 
+import java.util.List;
+
 import com.skillstorm.nextgen.data.UserDAO;
 import com.skillstorm.nextgen.pojo.User;
 
@@ -18,9 +20,8 @@ public class UserService {
 	}
 
 
-	public User findAll() {
-		// TODO Add code for find all users 
-		return null;
+	public List<User> findAll() {
+		return userDAO.findAll();
 	}
 
 	public User findByUserName(String username) {
