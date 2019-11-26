@@ -17,4 +17,14 @@ public class UserService {
 		return userDAO.findByUserId(id);
 	}
 
+
+	public User findAll() {
+		// TODO Add code for find all users 
+		return null;
+	}
+
+	public User findByUserName(String username) {
+		return userDAO.findByUserName(username);
+	}
+
 }
