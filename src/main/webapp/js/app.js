@@ -10,17 +10,16 @@ document.addEventListener('DOMContentLoaded', function(){
 
     
     let url = 'http://localhost:8080/Timedopla/api/user';
-    let promise = axios.get(url);
 
-    promise.then(function(response){
-            //let response = 
-           // appendArtist(response.data);
-           // document.getElementById('artist').value =null;
-           window.alert(response.data);
 
-           appendUser(response.data);
+
+    axios.get(url).then(resp => {
+    
+        console.log(resp.data);
+         Userstatic(resp.data);
     });
-} )
+
+})
 
 
 function Userstatic(list){
@@ -35,7 +34,7 @@ function appendUser(user){
     id.innerText = user.userId;
 
     let name = document.createElement('td');
-    name.innerText = user.username;
+    name.innerText = user.userName;
     tr.appendChild(id);
     tr.appendChild(name);
     document.getElementById('list').appendChild(tr);
