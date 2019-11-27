@@ -7,3 +7,11 @@
     font-size: 26px;
     color: #6979f8;
 }
+
+body {
+    background-color: #f5f6f8;
+  }
+
+  #sidebar{
+    background-color: #ffffff;
+  }
