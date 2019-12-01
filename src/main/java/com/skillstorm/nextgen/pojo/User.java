@@ -14,7 +14,15 @@ public class User {
 	private LinkedList<Timesheet> timeSheet;
 	private String gatecode; // password
 	
-	
+	public User() {
+		super();
+	}
+
+	public User(String userName, String gatecode) {
+		super();
+		this.userName = userName;
+		this.gatecode = gatecode;
+	}
 
 	public User(int userId, String firstName, String lastName, String userRole, String userStatus, String userInitials,
 			LinkedList<Timesheet> timeSheet, String gatecode) {

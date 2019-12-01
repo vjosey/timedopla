@@ -24,7 +24,7 @@ public class UserCtrl {
 		// TODO getUser(req,resp)
 		
 		resp.setContentType("application/json");
-		if (req.getParameter(" id") != null) {
+		if (req.getParameter("id") != null) {
 			resp.getWriter().println(new ObjectMapper()
 					.writeValueAsString(userService.findByUserId(Integer.parseInt(req.getParameter("userid")))));
 		} else if (req.getParameter("name") != null) {
@@ -41,9 +41,4 @@ public class UserCtrl {
 		
 	}
 	
-	public void putUser(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

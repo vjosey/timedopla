@@ -5,7 +5,7 @@
 //let username = document.getElementById('username');
 
 //username.innerText ='Mebobgotabadyitsaboy';
-
+/* 
 document.addEventListener('DOMContentLoaded', function(){
 
     
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
          Userstatic(resp.data);
     });
 
-})
+}) */
 
 
 function Userstatic(list){
@@ -38,4 +38,52 @@ function appendUser(user){
     tr.appendChild(id);
     tr.appendChild(name);
     document.getElementById('list').appendChild(tr);
+}
+
+
+
+window.addEventListener('DOMContentLoaded', user);
+
+
+//console.log(location.hash); // testing
+
+function user(){
+var userSignForm = document.getElementById('user-signin-form');
+
+if(userSignForm != null)
+{
+    userSignForm.addEventListener('submit', function(e){
+    e.preventDefault(); // stop expecting a page refresh
+
+
+    let user = {
+        userName: document.getElementById('inputUser').value
+       // gatecode: document.getElementById('inputPassword').value
+    };
+
+    let url = 'http://localhost:8080/Timedopla/api/session';
+
+    let promise = axios.post(url, user);
+
+    promise.then(function(response){
+            
+            console.log(response.data);
+
+            // clear out username and password input fields 
+            document.getElementById('inputUser').value =null;
+            document.getElementById('inputPassword').value =null;
+    });
+
+    promise.catch(function(){
+
+    });
+
+});
+}else{
+  
+}
+
+
+
+console.log(userSignForm);
 }

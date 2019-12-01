@@ -12,14 +12,10 @@ public class Fcservlet extends HttpServlet {
 	private UserCtrl userController = new UserCtrl();
 	private TimeSheetCtrl timeSheetController = new TimeSheetCtrl();
 	private PunchCardCtrl punchCardController = new PunchCardCtrl();
+	private SessionCtrl sessionController = new SessionCtrl();
 
 	protected void doDispatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String uri = req.getRequestURI();
-		
-		if(req.getRequestURI().contains("hello")) {
-			resp.getWriter().append("Timedopla API");
-			resp.setStatus(200);
-		}
 		
 		switch (uri) {
 		case "/Timedopla/api/user":
@@ -77,6 +73,22 @@ public class Fcservlet extends HttpServlet {
 			}
 			if (req.getMethod().equals("DELETE")) {
 				punchCardController.deletePunchCard(req, resp);
+				return;
+			}
+			
+			break;
+			
+		case "/Timedopla/api/session":
+			if (req.getMethod().equals("POST")) {
+				sessionController.postUser(req, resp);
+				return;
+			}
+			if (req.getMethod().equals("GET")) {
+				sessionController.getUser(req, resp);
+				return;
+			}
+			if (req.getMethod().equals("DELETE")) {
+				userController.deleteUser(req, resp);
 				return;
 			}
 			
