@@ -3,9 +3,11 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.skillstorm.nextgen.pojo.User;
 import com.skillstorm.nextgen.serv.UserService;
 
 public class UserCtrl {
@@ -21,17 +23,19 @@ public class UserCtrl {
 	}
 
 	public void getUser(HttpServletRequest req, HttpServletResponse resp) throws NumberFormatException, JsonProcessingException, IOException {
-		// TODO getUser(req,resp)
 		
 		resp.setContentType("application/json");
-		if (req.getParameter("id") != null) {
-			resp.getWriter().println(new ObjectMapper()
-					.writeValueAsString(userService.findByUserId(Integer.parseInt(req.getParameter("userid")))));
-		} else if (req.getParameter("name") != null) {
+		
+		HttpSession session = req.getSession(); 
+		
+		User user = (User) session.getAttribute("user");
+		
+	     if (user != null) 
+	     {
 			resp.getWriter().println(
-					new ObjectMapper().writeValueAsString(userService.findByUserName(req.getParameter("username"))));
+					new ObjectMapper().writeValueAsString(userService.findByUserId(user.getUserId())));
 		} else {
-			resp.getWriter().println(new ObjectMapper().writeValueAsString(userService.findAll()));
+			System.out.println("No user session found!");
 		}
 		resp.setStatus(201);
 	}

@@ -6,17 +6,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class Fcservlet extends HttpServlet {
 
 	private UserCtrl userController = new UserCtrl();
 	private TimeSheetCtrl timeSheetController = new TimeSheetCtrl();
 	private PunchCardCtrl punchCardController = new PunchCardCtrl();
 	private SessionCtrl sessionController = new SessionCtrl();
+	private LogoutCtrl logoutController = new LogoutCtrl();
 
 	protected void doDispatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String uri = req.getRequestURI();
-		
+
 		switch (uri) {
 		case "/Timedopla/api/user":
 			if (req.getMethod().equals("POST")) {
@@ -35,9 +35,9 @@ public class Fcservlet extends HttpServlet {
 				userController.deleteUser(req, resp);
 				return;
 			}
-			
+
 			break;
-			
+
 		case "/Timedopla/api/timesheet":
 			if (req.getMethod().equals("POST")) {
 				timeSheetController.postTimeSheet(req, resp);
@@ -55,9 +55,9 @@ public class Fcservlet extends HttpServlet {
 				timeSheetController.deleteTimeSheet(req, resp);
 				return;
 			}
-			
+
 			break;
-			
+
 		case "/Timedopla/api/punchcard":
 			if (req.getMethod().equals("POST")) {
 				punchCardController.postPunchCard(req, resp);
@@ -75,9 +75,9 @@ public class Fcservlet extends HttpServlet {
 				punchCardController.deletePunchCard(req, resp);
 				return;
 			}
-			
+
 			break;
-			
+
 		case "/Timedopla/api/session":
 			if (req.getMethod().equals("POST")) {
 				sessionController.postUser(req, resp);
@@ -91,7 +91,16 @@ public class Fcservlet extends HttpServlet {
 				userController.deleteUser(req, resp);
 				return;
 			}
-			
+
+			break;
+
+		case "/Timedopla/api/logout":
+
+			if (req.getMethod().equals("GET")) {
+				logoutController.getSession(req, resp);
+				return;
+			}
+
 			break;
 
 		default:
@@ -118,11 +127,10 @@ public class Fcservlet extends HttpServlet {
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doDispatch(req, resp);
 	}
-	
+
 	@Override
 	public void init() throws ServletException {
 		System.out.println(" FC Initialized!");
 	}
-	
 
 }

@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function(){
 }) */
 
 
+
 function Userstatic(list){
     for(let user of list){
         appendUser(user);
@@ -42,12 +43,38 @@ function appendUser(user){
 
 
 
-window.addEventListener('DOMContentLoaded', user);
+window.addEventListener('DOMContentLoaded', pageState);
+
+function pageState(){
+
+switch(location.hash)
+{
+    case '#dashboard':
+            dashboard();
+    break;
+    case '#login':
+        login();
+    break;
+    case '#timesheet':
+    break;
+    case '#profile':
+    break;
+
+}
+
+
+
+
+}
+
+
+
+
 
 
 //console.log(location.hash); // testing
 
-function user(){
+function login(){
 var userSignForm = document.getElementById('user-signin-form');
 
 if(userSignForm != null)
@@ -57,8 +84,8 @@ if(userSignForm != null)
 
 
     let user = {
-        userName: document.getElementById('inputUser').value
-       // gatecode: document.getElementById('inputPassword').value
+        userName: document.getElementById('inputUser').value,
+        gatecode: document.getElementById('inputPassword').value
     };
 
     let url = 'http://localhost:8080/Timedopla/api/session';
@@ -67,11 +94,14 @@ if(userSignForm != null)
 
     promise.then(function(response){
             
-            console.log(response.data);
+            console.log(response.data.userId);
 
             // clear out username and password input fields 
             document.getElementById('inputUser').value =null;
             document.getElementById('inputPassword').value =null;
+            location.hash = "#dashboard";
+            dashboard();
+           
     });
 
     promise.catch(function(){
@@ -83,7 +113,38 @@ if(userSignForm != null)
   
 }
 
-
-
 console.log(userSignForm);
+}
+
+
+function dashboard()
+{
+
+
+   getUser(userInfo);
+
+}
+
+document.getElementById('logout').addEventListener('click', function(){
+    let url = 'http://localhost:8080/Timedopla/api/logout';
+    let promise = axios.get(url);
+});
+
+
+function getUser(func)
+    {
+
+    let url = 'http://localhost:8080/Timedopla/api/user';
+
+    let promise = axios.get(url).then(resp => {
+        console.log(resp.data);
+        func(resp.data);
+    });
+
+}
+
+function userInfo(data)
+{
+    let uin = document.getElementById("profileimg");
+    uin.innerText = data.userInitials;
 }

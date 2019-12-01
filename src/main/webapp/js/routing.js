@@ -74,7 +74,7 @@
   
       // Toggle the "active" class on the link currently navigated to.
       setActiveLink(fragmentId);
-      console.log(location.hash);
+     // console.log(location.hash);
     }
   
     // If no fragment identifier is provided,

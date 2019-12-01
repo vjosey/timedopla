@@ -52,12 +52,8 @@ public class SessionCtrl {
 		//check username and password
 		//if user and password exist the create a session
 		User user = new ObjectMapper().readValue(req.getInputStream(), User.class);
-		System.out.println(user);
 		
-		//System.out.println(req.getInputStream());
-
-		
-			User userProfile = userService.findByUserName(user.getUserName());
+		User userProfile = userService.findByUserName(user.getUserName());
 			
 			System.out.println(userProfile.getFirstName());
 			
@@ -66,18 +62,16 @@ public class SessionCtrl {
 				
 					HttpSession session = req.getSession();
 					session.setAttribute("user", userProfile);
-					session.setMaxInactiveInterval(2000);
-					resp.sendRedirect("index.html#dashboard");
-					
-					System.out.println("login done");
-			}else {
+         			//System.out.println(session.getAttribute("user"));
+ 
+			}else{
 				//user cannot login
+				resp.getWriter().println("#noaccess");
 				System.out.println("wrong username or password");
-				
 			}
 		
 		
-		System.out.println("Done Login");
+		//System.out.println();
 		resp.setStatus(201);
 		
 	}
