@@ -62,14 +62,7 @@ switch(location.hash)
 
 }
 
-
-
-
 }
-
-
-
-
 
 
 //console.log(location.hash); // testing
@@ -119,10 +112,7 @@ console.log(userSignForm);
 
 function dashboard()
 {
-
-
-   getUser(userInfo);
-
+   getUser(dashboardInfo);
 }
 
 document.getElementById('logout').addEventListener('click', function(){
@@ -135,7 +125,6 @@ function getUser(func)
     {
 
     let url = 'http://localhost:8080/Timedopla/api/user';
-
     let promise = axios.get(url).then(resp => {
         console.log(resp.data);
         func(resp.data);
@@ -143,8 +132,33 @@ function getUser(func)
 
 }
 
-function userInfo(data)
+function dashboardInfo(data)
 {
     let uin = document.getElementById("profileimg");
     uin.innerText = data.userInitials;
+}
+
+function appendListTimesheets(sheet){
+    let tr = document.createElement('tr');
+
+    let dateTs = document.createElement('td');
+    dateTs.innerText = sheet.userId;
+
+    let hourTs= document.createElement('td');
+    hourTs.innerText = sheet.userName;
+
+    let statusTs= document.createElement('td');
+    statusTs.innerText = sheet.userName;
+
+    let buttonTstd= document.createElement('td');
+    let buttonTs = document.createElement('button');
+   // buttonTs.setAttribute('id','btn'+sheet.tsheetId);
+    buttonTstd.innerHTML = buttonTs;
+
+    tr.appendChild(dateTs);
+    tr.appendChild(hourTs);
+    tr.appendChild(statusTs);
+    tr.appendChild(buttonTstd);
+
+    document.getElementById('timesheetList').appendChild(tr);
 }

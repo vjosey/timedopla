@@ -2,7 +2,9 @@ package com.skillstorm.nextgen.pojo;
 
 public class Timesheet {
 	private int timesheetId;
+	private int userId;
 	private String startOfWeek;
+	private int tsStatus;
 	private PunchCard monPcard;
 	private PunchCard tuePcard;
 	private PunchCard wedPcard;
@@ -12,13 +14,29 @@ public class Timesheet {
 	private PunchCard sunPcard;
 	
 	
+	public Timesheet() {
+		super();
+	}
+	
+	
 	public Timesheet(int timesheetId, String startOfWeek) {
 		super();
 		this.timesheetId = timesheetId;
 		this.startOfWeek = startOfWeek;
 	}
 
-	
+
+
+
+	public Timesheet(int timesheetId, int userId, String startOfWeek, int tsStatus) {
+		super();
+		this.timesheetId = timesheetId;
+		this.userId = userId;
+		this.startOfWeek = startOfWeek;
+		this.tsStatus = tsStatus;
+	}
+
+
 	public int getHours(PunchCard p_card) {
 		// TODO calculate the hours from p_card times
 		return 1;
@@ -119,6 +137,26 @@ public class Timesheet {
 		return "Timesheet [timesheetId=" + timesheetId + ", startOfWeek=" + startOfWeek + ", monPcard=" + monPcard
 				+ ", tuePcard=" + tuePcard + ", wenPcard=" + wedPcard + ", thurPcard=" + thurPcard + ", friPcard="
 				+ friPcard + ", satPcard=" + satPcard + ", sunPcard=" + sunPcard + "]";
+	}
+
+
+	public int getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+
+	public int getTsStatus() {
+		return tsStatus;
+	}
+
+
+	public void setTsStatus(int tsStatus) {
+		this.tsStatus = tsStatus;
 	}
 	
 	

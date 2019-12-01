@@ -16,33 +16,7 @@ public class SessionCtrl {
 	private UserService userService = new UserService();
 	
 	public void getUser(HttpServletRequest req, HttpServletResponse resp) throws NumberFormatException, IOException {
-		// TODO getUser(req,resp)
-		
-		resp.setContentType("application/json");
-		
-		//check username and password
-		
-		
-		//if user and password exsist the create a session
-		
-		if (req.getParameter("name") != null) {
-		
-			
-			User userProfile = userService.findByUserName(req.getParameter("username"));
-			
-			if (userProfile != null) {
-				if(userProfile.getGatecode() == req.getParameter("password")) {
-					
-					
-				}else {
-					
-					//can not login
-				}
-			}
-		}
-		
-		
-		resp.setStatus(201);
+
 	}
 
 	
