@@ -13,6 +13,9 @@ public class Timesheet {
 	private PunchCard satPcard;
 	private PunchCard sunPcard;
 	
+	private int totalHours = 40;
+	private String status;
+	
 	
 	public Timesheet() {
 		super();
@@ -42,6 +45,25 @@ public class Timesheet {
 		return 1;
 	}
 
+	public void getStatusAsString() {
+		String status = "";
+		
+		switch(tsStatus) {
+		case 4: status ="Denied";
+		break;
+		case 3: status ="Approved";
+		break;
+		case 2: status = "Submitted";
+		break;
+		case 1: status = "Saved";
+		break;
+		}
+		
+		this.status = status;	
+	}
+	
+	
+	
 	public int getTimesheetId() {
 		return timesheetId;
 	}
@@ -157,6 +179,36 @@ public class Timesheet {
 
 	public void setTsStatus(int tsStatus) {
 		this.tsStatus = tsStatus;
+	}
+
+
+	public PunchCard getWedPcard() {
+		return wedPcard;
+	}
+
+
+	public void setWedPcard(PunchCard wedPcard) {
+		this.wedPcard = wedPcard;
+	}
+
+
+	public int getTotalHours() {
+		return totalHours;
+	}
+
+
+	public void setTotalHours(int totalHours) {
+		this.totalHours = totalHours;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

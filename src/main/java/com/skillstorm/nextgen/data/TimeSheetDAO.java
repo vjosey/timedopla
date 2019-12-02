@@ -9,34 +9,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.skillstorm.nextgen.pojo.Timesheet;
-import com.skillstorm.nextgen.pojo.User;
 
-public class TimeSheetDOA {
+
+public class TimeSheetDAO {
 	
 	 public Connection getConnection() {
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				//TODO change connection url
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timedopla", "root", "admin");
 				return conn;
 			} catch (SQLException | ClassNotFoundException e) {
-				throw new RuntimeException(e); // TODO Check the exception
+				throw new RuntimeException(e); 
 			}
 	 }
 	 
 	 
-	 public List<Timesheet> findByTimesheetsId(int id) {
+	 public LinkedList<Timesheet> findTimesheetsByUserId(int id) {
 		 
 		 Connection conn = getConnection();
-		 
 		 LinkedList<Timesheet> results = new LinkedList<>();
-		
+	
 			try {
-				PreparedStatement pstmt = conn.prepareStatement("select *  from timesheet where  userId=?");
+				
+				PreparedStatement pstmt = conn.prepareStatement("select * from timesheet where userId=?");
 				pstmt.setInt(1, id);
+				
 				ResultSet rs = pstmt.executeQuery();
-				while (rs.next()) {
-					Timesheet ts = new Timesheet(rs.getInt("tsheetId"), rs.getInt("userId"), rs.getString("startDate"), rs.getInt("tsStatus"));
+				
+				while (rs.next()) 
+				{
+					
+					System.out.println(rs.getInt("tsheetId"));
+					Timesheet ts = new Timesheet(rs.getInt("tsheetId"), rs.getInt("userId"), rs.getDate("startWeek").toString(), rs.getInt("tsStatus"));
+					
+					ts.getStatusAsString();
 					results.add(ts);
 				}
 				
@@ -55,9 +61,34 @@ public class TimeSheetDOA {
 		 return results;
 	 }
 	 
-	 public Timesheet findByUserId(Timesheet timesheet) {
+	 public Timesheet findByTimesheetId(int id) {
 		 
-		 return timesheet;
+		 Connection conn = getConnection();
+		 Timesheet results = new Timesheet();
+		 
+			try {
+				
+				PreparedStatement pstmt = conn.prepareStatement("select * from timesheet where tsheetId=?");
+				pstmt.setInt(1, id);
+				ResultSet rs = pstmt.executeQuery();
+				
+				rs.next();
+				results = new Timesheet(rs.getInt("tsheetId"), rs.getInt("userId"), rs.getDate("startWeek").toString(), rs.getInt("tsStatus"));
+				results.getStatusAsString();
+				
+				//System.out.println(ts);
+				
+			} catch (SQLException e) {
+				//throw new RuntimeException(e); 
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					//throw new RuntimeException(e);
+				}
+		}
+		 
+		 return results;
 	 }
 	 
 	 

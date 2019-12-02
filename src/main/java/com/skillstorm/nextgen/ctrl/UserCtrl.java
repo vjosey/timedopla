@@ -39,6 +39,7 @@ public class UserCtrl {
 		}
 		resp.setStatus(201);
 	}
+	
 
 	public void postUser(HttpServletRequest req, HttpServletResponse resp) {
 		// TODO Auto-generated method stub

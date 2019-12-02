@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
 }) */
 
+var currentTimeSheetId;
+
 
 
 function Userstatic(list){
@@ -56,6 +58,7 @@ switch(location.hash)
         login();
     break;
     case '#timesheet':
+        timeSheetPage();
     break;
     case '#profile':
     break;
@@ -113,6 +116,7 @@ console.log(userSignForm);
 function dashboard()
 {
    getUser(dashboardInfo);
+   getTimeSheets();
 }
 
 document.getElementById('logout').addEventListener('click', function(){
@@ -132,33 +136,106 @@ function getUser(func)
 
 }
 
+function getTimeSheets()
+    {
+
+    let url = 'http://localhost:8080/Timedopla/api/timesheet';
+    let promise = axios.get(url).then(resp => {
+        console.log("Get timesheets");
+        timeSheetSep(resp.data);
+    });
+
+}
+
+function getTimeSheet(id)
+    {
+
+    let url = `http://localhost:8080/Timedopla/api/timesheet?id=${id}`;
+
+    let promise = axios.get(url).then(resp => {
+        console.log("Get timesheets  " + url);
+       
+    });
+
+}
+
+
+
 function dashboardInfo(data)
 {
     let uin = document.getElementById("profileimg");
     uin.innerText = data.userInitials;
 }
 
+function timeSheetSep(list){
+    for(let sheet of list){
+        appendListTimesheets(sheet);
+    }
+}
+
 function appendListTimesheets(sheet){
     let tr = document.createElement('tr');
 
     let dateTs = document.createElement('td');
-    dateTs.innerText = sheet.userId;
+    dateTs.innerText = sheet.startOfWeek;
 
     let hourTs= document.createElement('td');
-    hourTs.innerText = sheet.userName;
+    hourTs.innerText = sheet.totalHours + " hr(s)";
 
     let statusTs= document.createElement('td');
-    statusTs.innerText = sheet.userName;
+    statusTs.innerText = sheet.status;
 
     let buttonTstd= document.createElement('td');
     let buttonTs = document.createElement('button');
-   // buttonTs.setAttribute('id','btn'+sheet.tsheetId);
-    buttonTstd.innerHTML = buttonTs;
+    buttonTs.setAttribute('id','btn'+sheet.timesheetId);
+    buttonTs.setAttribute('class','btnbtn btn-primary btn-block');
+   
+    if(sheet.status == "Saved" || sheet.status == "Denied")
+    {
+        buttonTs.innerText = "Edit";
+        buttonTs.setAttribute('onclick',`onTimeSheetCall(${sheet.timesheetId},"Edit")`);
+
+    }else if(sheet.status == "Approved" || sheet.status == "Submitted")
+    {
+        buttonTs.innerText = "View";
+        buttonTs.setAttribute('onclick',`onTimeSheetCall(${sheet.timesheetId},"View")`);
+    }
 
     tr.appendChild(dateTs);
     tr.appendChild(hourTs);
     tr.appendChild(statusTs);
     tr.appendChild(buttonTstd);
+    buttonTstd.appendChild(buttonTs);
 
     document.getElementById('timesheetList').appendChild(tr);
+}
+
+function onTimeSheetCall(tsId, tsStat)
+{
+    // get timesheet by id 
+    getTimeSheet(tsId);
+
+ if(tsStat=="Edit")
+ {
+    // load timesheet page with editable elements
+    console.log("Edit Timesheet");
+ }else if(tsStat=="View"){
+     // load timesheet page with viewable elements
+     console.log("View Timesheet");
+ }
+
+
+
+}
+
+
+function timeSheetPage()
+{
+
+}
+
+function appendPunchCard()
+{
+
+
 }

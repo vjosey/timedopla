@@ -14,11 +14,10 @@ public class UserDAO {
  public Connection getConnection() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			//TODO change connection URL
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timedopla", "root", "admin");
 			return conn;
 		} catch (SQLException | ClassNotFoundException e) {
-			throw new RuntimeException(e); // TODO Check the exception
+			throw new RuntimeException(e); 
 		}
  }
  
