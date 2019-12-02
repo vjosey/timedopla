@@ -1,28 +1,14 @@
-//var req = new XMLHttpRequest();
 
-//req.open('GET','')
-
-//let username = document.getElementById('username');
-
-//username.innerText ='Mebobgotabadyitsaboy';
-/* 
-document.addEventListener('DOMContentLoaded', function(){
-
-    
-    let url = 'http://localhost:8080/Timedopla/api/user';
-
-
-
-    axios.get(url).then(resp => {
-    
-        console.log(resp.data);
-         Userstatic(resp.data);
-    });
-
-}) */
-
-var currentTimeSheetId;
-
+var currentTimeSheet = {
+id: '',
+totalHours: '',
+sunday: '',
+monday: '',
+tuesday:'',
+wednesday:'',
+thurdays:'',
+friday:''
+};
 
 
 function Userstatic(list){
@@ -48,11 +34,11 @@ function appendUser(user){
 window.addEventListener('DOMContentLoaded', pageState);
 
 function pageState(){
-
+//console.log("call window");
 switch(location.hash)
 {
     case '#dashboard':
-            dashboard();
+        dashboard();
     break;
     case '#login':
         login();
@@ -106,7 +92,7 @@ if(userSignForm != null)
 
 });
 }else{
-  
+    //location.reload();
 }
 
 console.log(userSignForm);
@@ -122,6 +108,7 @@ function dashboard()
 document.getElementById('logout').addEventListener('click', function(){
     let url = 'http://localhost:8080/Timedopla/api/logout';
     let promise = axios.get(url);
+    location.hash = "#login";
 });
 
 
@@ -218,20 +205,30 @@ function onTimeSheetCall(tsId, tsStat)
  if(tsStat=="Edit")
  {
     // load timesheet page with editable elements
-    console.log("Edit Timesheet");
+   // console.log("Edit Timesheet");
+   location.hash = "#timesheet";
+
+   location
  }else if(tsStat=="View"){
      // load timesheet page with viewable elements
-     console.log("View Timesheet");
+    // console.log("View Timesheet");
+
+    location.hash = "#timesheet";
  }
 
-
-
+ //location.reload();
 }
 
 
 function timeSheetPage()
 {
-
+    timesheetDayRow('sunday');
+    timesheetDayRow('monday');
+    timesheetDayRow('tuesday');
+    timesheetDayRow('wednesday');
+    timesheetDayRow('thurdays');
+    timesheetDayRow('friday');
+    timesheetDayRow('saturday');
 }
 
 function appendPunchCard()
@@ -239,3 +236,68 @@ function appendPunchCard()
 
 
 }
+
+function timesheetDayRow(name)
+{
+    let row = document.createElement("div");
+    row.setAttribute('class','row');
+    row.setAttribute('id', name);
+    
+    timesheetDayColLabel(name, name, row);
+    timesheetDayCol("inAm" + name,"In",row);
+    timesheetDayCol("outAm"+ name,"Out",row);
+    timesheetDayCol("inPm" + name,"In",row);
+    timesheetDayCol("outPm"+ name,"Out",row);
+    timesheetDayColLabel(name + "hours", "40hr(s)", row);
+
+
+let form = document.getElementById('puchcardTime');
+form.appendChild(row);
+
+}
+
+function timesheetDayCol(name,disTxt,parent)
+{
+    let col = document.createElement("div");
+    col.setAttribute('class','col');
+    col.setAttribute('id', name);
+
+    let timeInput = document.createElement('input');
+    timeInput.setAttribute('type','text');
+    timeInput.setAttribute('class','form-control');
+    timeInput.setAttribute('placeholder',disTxt);
+    
+    col.appendChild(timeInput);
+    parent.appendChild(col);
+}
+
+function timesheetDayColLabel(name, msg, parent)
+{
+    let col = document.createElement("div");
+    col.setAttribute('class','col');
+    col.setAttribute('id', name);
+
+    let title = document.createElement('h5');
+    title.setAttribute('class','text-uppercase');
+   // title.setAttribute('placeholder',name);
+    
+   title.innerText = msg;
+    col.appendChild(title);
+    parent.appendChild(col);
+}
+
+
+function setCurrentTimeSheet(data)
+{
+    currentTimeSheet.id = data.timesheetId; 
+    currentTimeSheet.sunday = data;
+    currentTimeSheet.monday = data.monPcard.;
+    currentTimeSheet.tuesday = data;
+    currentTimeSheet.wednesday = data;
+    currentTimeSheet.thurdays = data;
+    currentTimeSheet.friday =data;
+
+    currentTimeSheet.totalHours = data; 
+}
+
+

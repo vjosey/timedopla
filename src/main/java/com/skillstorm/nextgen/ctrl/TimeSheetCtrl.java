@@ -35,9 +35,10 @@ public class TimeSheetCtrl {
 		if(user != null) 
 		{
 			
-			if(req.getParameter("ID") != null)
+			if(req.getParameter("id") != null)
 			{
-				resp.getWriter().println(new ObjectMapper().writeValueAsString(timesheetService.findTimesheetsByUserId(user.getUserId())));
+				
+				resp.getWriter().println(new ObjectMapper().writeValueAsString(timesheetService.findTimesheetById(Integer.parseInt(req.getParameter("id")))));
 			}else
 			{
 			resp.getWriter().println(new ObjectMapper().writeValueAsString(timesheetService.findTimesheetsByUserId(user.getUserId())));

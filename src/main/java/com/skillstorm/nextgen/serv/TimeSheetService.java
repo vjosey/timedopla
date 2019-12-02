@@ -17,7 +17,12 @@ public class TimeSheetService {
 	 public Timesheet findTimesheetById(int id)
 	 {
 		 return tsDAO.findByTimesheetId(id);
-	 }
+	 } 
 	 
+	 
+	 public void update(Timesheet timesheet)
+	 {
+		 tsDAO.update(timesheet);
+	 }
 
 }

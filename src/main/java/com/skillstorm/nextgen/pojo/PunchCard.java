@@ -1,13 +1,27 @@
 package com.skillstorm.nextgen.pojo;
 
 public class PunchCard {
-int pCardId;
-long amIn;
-long amOut;
-long pmIn;
-long pmOut;
-long pCardDate;
+private int pCardId;
+private long amIn;
+private long amOut;
+private long pmIn;
+private long pmOut;
+private long pCardDate;
+private long totalHours;
 
+
+public void CalculateHours()
+{
+	long am = amOut - amIn;
+	long pm = pmOut - pmIn;
+	
+	totalHours = am + pm;
+
+}
+
+public PunchCard() {
+	super();
+}
 
 public PunchCard(int pCardId, long pCardDate) {
 	super();
@@ -24,6 +38,15 @@ public PunchCard(int pCardId, long amIn, long amOut, long pmIn, long pmOut, long
 	this.pmIn = pmIn;
 	this.pmOut = pmOut;
 	this.pCardDate = pCardDate;
+}
+
+public PunchCard(int pCardId, long amIn, long amOut, long pmIn, long pmOut) {
+	super();
+	this.pCardId = pCardId;
+	this.amIn = amIn;
+	this.amOut = amOut;
+	this.pmIn = pmIn;
+	this.pmOut = pmOut;
 }
 
 
@@ -69,6 +92,14 @@ public void setpCardDate(long pCardDate) {
 public String toString() {
 	return "PunchCard [pCardId=" + pCardId + ", amIn=" + amIn + ", amOut=" + amOut + ", pmIn=" + pmIn + ", pmOut="
 			+ pmOut + ", pCardDate=" + pCardDate + "]";
+}
+
+public long getTotalHours() {
+	return totalHours;
+}
+
+public void setTotalHours(long totalHours) {
+	this.totalHours = totalHours;
 }
 
 

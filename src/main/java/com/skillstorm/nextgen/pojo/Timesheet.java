@@ -13,7 +13,7 @@ public class Timesheet {
 	private PunchCard satPcard;
 	private PunchCard sunPcard;
 	
-	private int totalHours = 40;
+	private long totalHours;
 	private String status;
 	
 	
@@ -39,11 +39,12 @@ public class Timesheet {
 		this.tsStatus = tsStatus;
 	}
 
-
-	public int getHours(PunchCard p_card) {
-		// TODO calculate the hours from p_card times
-		return 1;
+	public void CalculateHours()
+	{
+	
+		totalHours = monPcard.getTotalHours() + tuePcard.getTotalHours() + wedPcard.getTotalHours() + thurPcard.getTotalHours() + friPcard.getTotalHours() + satPcard.getTotalHours() + sunPcard.getTotalHours();
 	}
+
 
 	public void getStatusAsString() {
 		String status = "";
@@ -192,12 +193,12 @@ public class Timesheet {
 	}
 
 
-	public int getTotalHours() {
+	public long getTotalHours() {
 		return totalHours;
 	}
 
 
-	public void setTotalHours(int totalHours) {
+	public void setTotalHours(long totalHours) {
 		this.totalHours = totalHours;
 	}
 
